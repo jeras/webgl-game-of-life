@@ -18,7 +18,7 @@ function GOL(canvas, scale) {
     this.lasttick = GOL.now();
     this.fps = 0;
 
-    this.rule = new Uint32Array(16);
+    this.rule = new Int32Array(16);
     this.rule [ 0] = 0;
     this.rule [ 1] = 1;
     this.rule [ 2] = 0;
