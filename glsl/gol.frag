@@ -41,8 +41,8 @@ void main() {
 
     for (int i=0; i<16; i++) {
         if (index == i) {
-            float out = float(rule[i])
-            gl_FragColor = vec4(out, out, out, 1.0);
+            float val = float(rule[i]);
+            gl_FragColor = vec4(val, val, val, 1.0);
         }
     }
 }
