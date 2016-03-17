@@ -39,5 +39,24 @@ void main() {
               + (cell_01 * 2)
               + (cell_00 * 1);
 
-    gl_FragColor = vec4(float(rule[index]), 0.0, 0.0, 1.0);
+    int out;
+
+    if (index ==  0)  out = rule[ 0];
+    if (index ==  1)  out = rule[ 1];
+    if (index ==  2)  out = rule[ 2];
+    if (index ==  3)  out = rule[ 3];
+    if (index ==  4)  out = rule[ 4];
+    if (index ==  5)  out = rule[ 5];
+    if (index ==  6)  out = rule[ 6];
+    if (index ==  7)  out = rule[ 7];
+    if (index ==  8)  out = rule[ 8];
+    if (index ==  9)  out = rule[ 9];
+    if (index == 10)  out = rule[10];
+    if (index == 11)  out = rule[11];
+    if (index == 12)  out = rule[12];
+    if (index == 13)  out = rule[13];
+    if (index == 14)  out = rule[14];
+    if (index == 15)  out = rule[15];
+
+    gl_FragColor = vec4(float(out), 0.0, 0.0, 1.0);
 }
