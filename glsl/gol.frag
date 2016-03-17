@@ -40,8 +40,9 @@ void main() {
               + (cell_00 * 1);
 
     for (int i=0; i<16; i++) {
-        if (index == i) { 
-            gl_FragColor = vec4(float(rule[i]), 0.0, 0.0, 1.0);
+        if (index == i) {
+            float out = float(rule[i])
+            gl_FragColor = vec4(out, out, out, 1.0);
         }
     }
 }
