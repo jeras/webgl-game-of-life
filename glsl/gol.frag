@@ -10,8 +10,23 @@ int get(vec2 offset) {
 }
 
 void main() {
-    //                           0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
-    const int rule[16] = int[16](0,1,0,1,1,1,0,1,0,1,1,0,1,0,0,0);
+    int rule[16];
+    rule [ 0] = 0;
+    rule [ 1] = 1;
+    rule [ 2] = 0;
+    rule [ 3] = 1;
+    rule [ 4] = 1;
+    rule [ 5] = 1;
+    rule [ 6] = 0;
+    rule [ 7] = 1;
+    rule [ 8] = 0;
+    rule [ 9] = 1;
+    rule [10] = 1;
+    rule [11] = 0;
+    rule [12] = 1;
+    rule [13] = 0;
+    rule [14] = 0;
+    rule [15] = 0;
 
     //  cell_xy
     int cell_00 = get(vec2(0.0, 0.0));
@@ -19,10 +34,10 @@ void main() {
     int cell_10 = get(vec2(0.0, 0.0));
     int cell_11 = get(vec2(0.0, 0.0));
 
-    int index = (cell_11 << 3)
-              | (cell_10 << 2)
-              | (cell_01 << 1)
-              | (cell_00 << 0);
+    int index = (cell_11 * 8)
+              + (cell_10 * 4)
+              + (cell_01 * 2)
+              + (cell_00 * 1);
 
     gl_FragColor = vec4(float(rule[index]), 0.0, 0.0, 1.0);
 }
