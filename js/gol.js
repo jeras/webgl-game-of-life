@@ -18,6 +18,24 @@ function GOL(canvas, scale) {
     this.lasttick = GOL.now();
     this.fps = 0;
 
+    this.rule = new Float32Array([16]);
+    this.rule [ 0] = 0;
+    this.rule [ 1] = 1;
+    this.rule [ 2] = 0;
+    this.rule [ 3] = 1;
+    this.rule [ 4] = 1;
+    this.rule [ 5] = 1;
+    this.rule [ 6] = 0;
+    this.rule [ 7] = 1;
+    this.rule [ 8] = 0;
+    this.rule [ 9] = 1;
+    this.rule [10] = 1;
+    this.rule [11] = 0;
+    this.rule [12] = 1;
+    this.rule [13] = 0;
+    this.rule [14] = 0;
+    this.rule [15] = 1;
+
     gl.disable(gl.DEPTH_TEST);
     this.programs = {
         copy: igloo.program('glsl/quad.vert', 'glsl/copy.frag'),
@@ -150,6 +168,7 @@ GOL.prototype.step = function() {
         .attrib('quad', this.buffers.quad, 2)
         .uniformi('state', 0)
         .uniform('scale', this.statesize)
+        .uniform('rule', this.rule)
         .draw(gl.TRIANGLE_STRIP, 4);
     this.swap();
     return this;
@@ -168,6 +187,7 @@ GOL.prototype.draw = function() {
         .attrib('quad', this.buffers.quad, 2)
         .uniformi('state', 0)
         .uniform('scale', this.viewsize)
+        .uniform('rule', this.rule)
         .draw(gl.TRIANGLE_STRIP, 4);
     return this;
 };

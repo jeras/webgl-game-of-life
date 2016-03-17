@@ -11,22 +11,6 @@ int get(vec2 offset) {
 }
 
 void main() {
-    rule [ 0] = 0;
-    rule [ 1] = 1;
-    rule [ 2] = 0;
-    rule [ 3] = 1;
-    rule [ 4] = 1;
-    rule [ 5] = 1;
-    rule [ 6] = 0;
-    rule [ 7] = 1;
-    rule [ 8] = 0;
-    rule [ 9] = 1;
-    rule [10] = 1;
-    rule [11] = 0;
-    rule [12] = 1;
-    rule [13] = 0;
-    rule [14] = 0;
-    rule [15] = 1;
 
     //  cell_xy
     int cell_00 = get(vec2(0.0, 0.0));
