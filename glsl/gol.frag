@@ -10,21 +10,19 @@ int get(vec2 offset) {
 }
 
 void main() {
-    int sum =
-        get(vec2(-1.0, -1.0)) +
-        get(vec2(-1.0,  0.0)) +
-        get(vec2(-1.0,  1.0)) +
-        get(vec2( 0.0, -1.0)) +
-        get(vec2( 0.0,  1.0)) +
-        get(vec2( 1.0, -1.0)) +
-        get(vec2( 1.0,  0.0)) +
-        get(vec2( 1.0,  1.0));
-    if (sum == 3) {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-    } else if (sum == 2) {
-        float current = float(get(vec2(0.0, 0.0)));
-        gl_FragColor = vec4(current, current, current, 1.0);
-    } else {
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-    }
+    //                           0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+    const int rule[16] = int[16](0,1,0,1,1,1,0,1,0,1,1,0,1,0,0,0);
+
+    //  cell_xy
+    int cell_00 = get(vec2(0.0, 0.0));
+    int cell_01 = get(vec2(0.0, 0.0));
+    int cell_10 = get(vec2(0.0, 0.0));
+    int cell_11 = get(vec2(0.0, 0.0));
+
+    int index = (cell_11 << 3)
+              | (cell_10 << 2)
+              | (cell_01 << 1)
+              | (cell_00 << 0);
+
+    gl_FragColor = vec4(float(rule[index]), 0.0, 0.0, 1.0);
 }
