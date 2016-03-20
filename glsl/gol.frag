@@ -3,11 +3,15 @@ precision mediump float;
 #endif
 
 uniform sampler2D state;
+uniform sampler2D rule;
 uniform vec2 scale;
-uniform int rule[16];
 
 int get(vec2 offset) {
     return int(texture2D(state, (gl_FragCoord.xy + offset) / scale).r);
+}
+
+int map(vec2 offset) {
+    return int(texture2D(rule, offset / 16).r);
 }
 
 void main() {
@@ -24,10 +28,12 @@ void main() {
               + (cell_00 * 1);
 
     // TODO: use texture2D, it should be much faster
-    for (int i=0; i<16; i++) {
-        if (index == i) {
-            float val = float(rule[i]);
-            gl_FragColor = vec4(val, val, val, 1.0);
-        }
-    }
+    float val = float(map(vec2(index, 0.0)));
+    gl_FragColor = vec4(val, val, val, 1.0);
+//    for (int i=0; i<16; i++) {
+//        if (index == i) {
+//            float val = float(rule[i]);
+//            gl_FragColor = vec4(val, val, val, 1.0);
+//        }
+//    }
 }
