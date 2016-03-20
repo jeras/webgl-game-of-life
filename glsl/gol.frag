@@ -25,7 +25,7 @@ void main() {
     float x = float(index) / 16.0;
 
     // TODO: use texture2D, it should be much faster
-    gl_FragColor = float(texture2D(rule, vec2(x, 1.0)).r));
+    gl_FragColor = texture2D(rule, vec2(x, 1.0));
 //    for (int i=0; i<16; i++) {
 //        if (index == i) {
 //            float val = float(rule[i]);
