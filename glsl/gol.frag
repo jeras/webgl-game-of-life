@@ -11,7 +11,7 @@ int get(vec2 offset) {
 }
 
 int map(vec2 offset) {
-    return int(texture2D(rule, offset / 16).r);
+    return int(texture2D(rule, offset / vec2(16.0, 1.0)).r);
 }
 
 void main() {
