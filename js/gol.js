@@ -18,24 +18,6 @@ function GOL(canvas, scale) {
     this.lasttick = GOL.now();
     this.fps = 0;
 
-    this.rule = new Float32Array([16, 1]);
-    this.rule [0] [ 0] = 0.0;
-    this.rule [0] [ 1] = 1.0;
-    this.rule [0] [ 2] = 0.0;
-    this.rule [0] [ 3] = 1.0;
-    this.rule [0] [ 4] = 1.0;
-    this.rule [0] [ 5] = 1.0;
-    this.rule [0] [ 6] = 0.0;
-    this.rule [0] [ 7] = 1.0;
-    this.rule [0] [ 8] = 0.0;
-    this.rule [0] [ 9] = 1.0;
-    this.rule [0] [10] = 1.0;
-    this.rule [0] [11] = 0.0;
-    this.rule [0] [12] = 1.0;
-    this.rule [0] [13] = 0.0;
-    this.rule [0] [14] = 0.0;
-    this.rule [0] [15] = 1.0;
-
     gl.disable(gl.DEPTH_TEST);
     this.programs = {
         copy: igloo.program('glsl/quad.vert', 'glsl/copy.frag'),
@@ -48,12 +30,31 @@ function GOL(canvas, scale) {
         front: igloo.texture(null, gl.RGBA, gl.REPEAT, gl.NEAREST)
             .blank(this.statesize[0], this.statesize[1]),
         back: igloo.texture(null, gl.RGBA, gl.REPEAT, gl.NEAREST)
-            .blank(this.statesize[0], this.statesize[1])
+            .blank(this.statesize[0], this.statesize[1]),
+        rule: igloo.texture(null, gl.RGBA, gl.REPEAT, gl.NEAREST)
+            .blank(16, 1)
     };
     this.framebuffers = {
         step: igloo.framebuffer()
     };
     this.setRandom();
+
+    this.textures.front.subset([0.0, 0.0, 0.0, 255],  0, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255],  1, 0, 1, 1);
+    this.textures.front.subset([0.0, 0.0, 0.0, 255],  2, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255],  3, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255],  4, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255],  5, 0, 1, 1);
+    this.textures.front.subset([0.0, 0.0, 0.0, 255],  6, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255],  7, 0, 1, 1);
+    this.textures.front.subset([0.0, 0.0, 0.0, 255],  8, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255],  9, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255], 10, 0, 1, 1);
+    this.textures.front.subset([0.0, 0.0, 0.0, 255], 11, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255], 12, 0, 1, 1);
+    this.textures.front.subset([0.0, 0.0, 0.0, 255], 13, 0, 1, 1);
+    this.textures.front.subset([0.0, 0.0, 0.0, 255], 14, 0, 1, 1);
+    this.textures.front.subset([1.0, 1.0, 1.0, 255], 15, 0, 1, 1);
 }
 
 /**
@@ -163,12 +164,13 @@ GOL.prototype.step = function() {
     var gl = this.igloo.gl;
     this.framebuffers.step.attach(this.textures.back);
     this.textures.front.bind(0);
+    this.textures.rule.bind(1);
     gl.viewport(0, 0, this.statesize[0], this.statesize[1]);
     this.programs.gol.use()
         .attrib('quad', this.buffers.quad, 2)
         .uniformi('state', 0)
         .uniform('scale', this.statesize)
-        .uniform('rule', this.rule)
+        .uniformi('rule', 1)
         .draw(gl.TRIANGLE_STRIP, 4);
     this.swap();
     return this;
