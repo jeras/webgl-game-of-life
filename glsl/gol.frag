@@ -22,9 +22,10 @@ void main() {
               + (cell_10 * 4)
               + (cell_01 * 2)
               + (cell_00 * 1);
+    float x = float(index) / 16.0;
 
     // TODO: use texture2D, it should be much faster
-    gl_FragColor = texture2D(rule, vec2(index / 16.0, 1.0)).r);
+    gl_FragColor = texture2D(rule, vec2(x, 1.0)).r);
 //    for (int i=0; i<16; i++) {
 //        if (index == i) {
 //            float val = float(rule[i]);
