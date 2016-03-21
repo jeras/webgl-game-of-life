@@ -1,5 +1,5 @@
 /**
- * Game of Life simulation and display.
+ * QUAD CA simulation and display.
  * @param {HTMLCanvasElement} canvas Render target
  * @param {number} [scale] Size of each cell in pixels (power of 2)
  */
