@@ -187,7 +187,7 @@ GOL.prototype.draw = function() {
     this.igloo.defaultFramebuffer.bind();
     this.textures.front.bind(0);
     gl.viewport(0, 0, this.viewsize[0], this.viewsize[1]);
-    this.offset = new Float32Array([this.offset[0] + this.offset1[0], this.offset[1] + this.offset1[1]]);
+    this.offset = new Float32Array([this.offset[0] - this.offset1[0], this.offset[1] - this.offset1[1]]);
     this.programs.copy.use()
         .attrib('quad', this.buffers.quad, 2)
         .uniformi('state', 0)
