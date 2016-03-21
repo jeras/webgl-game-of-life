@@ -14,6 +14,8 @@ function GOL(canvas, scale) {
     var w = canvas.width, h = canvas.height;
     this.viewsize = new Float32Array([w, h]);
     this.statesize = new Float32Array([w / scale, h / scale]);
+    this.offset = new Float32Array([0, 0]);
+    this.offset1 = new Float32Array([this.scale/2, this.scale/2]);
     this.timer = null;
     this.lasttick = GOL.now();
     this.fps = 0;
@@ -185,10 +187,12 @@ GOL.prototype.draw = function() {
     this.igloo.defaultFramebuffer.bind();
     this.textures.front.bind(0);
     gl.viewport(0, 0, this.viewsize[0], this.viewsize[1]);
+    this.offset = new Float32Array([this.offset[0] + this.offset1[0], this.offset[1] + this.offset1[1]]);
     this.programs.copy.use()
         .attrib('quad', this.buffers.quad, 2)
         .uniformi('state', 0)
         .uniform('scale', this.viewsize)
+        .uniform('offset', this.offset)
         .draw(gl.TRIANGLE_STRIP, 4);
     return this;
 };
