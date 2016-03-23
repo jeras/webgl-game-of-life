@@ -41,22 +41,22 @@ function GOL(canvas, scale) {
     };
     this.setRandom();
 
-    this.textures.rule.subset([  0,   0,   0, 255],  0, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255],  1, 0, 1, 1);
-    this.textures.rule.subset([  0,   0,   0, 255],  2, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255],  3, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255],  4, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255],  5, 0, 1, 1);
-    this.textures.rule.subset([  0,   0,   0, 255],  6, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255],  7, 0, 1, 1);
-    this.textures.rule.subset([  0,   0,   0, 255],  8, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255],  9, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255], 10, 0, 1, 1);
-    this.textures.rule.subset([  0,   0,   0, 255], 11, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255], 12, 0, 1, 1);
-    this.textures.rule.subset([  0,   0,   0, 255], 13, 0, 1, 1);
-    this.textures.rule.subset([  0,   0,   0, 255], 14, 0, 1, 1);
-    this.textures.rule.subset([255, 255, 255, 255], 15, 0, 1, 1);
+    this.textures.rule.subset([  0,   0,   0, 255],  0, 0, 1, 1);  // 0000
+    this.textures.rule.subset([255, 255, 255, 255],  1, 0, 1, 1);  // 0001
+    this.textures.rule.subset([255, 255, 255, 255],  2, 0, 1, 1);  // 0010
+    this.textures.rule.subset([  0,   0,   0, 255],  3, 0, 1, 1);  // 0011
+    this.textures.rule.subset([255, 255, 255, 255],  4, 0, 1, 1);  // 0100
+    this.textures.rule.subset([  0,   0,   0, 255],  5, 0, 1, 1);  // 0101
+    this.textures.rule.subset([  0,   0,   0, 255],  6, 0, 1, 1);  // 0110
+    this.textures.rule.subset([255, 255, 255, 255],  7, 0, 1, 1);  // 0111
+    this.textures.rule.subset([255, 255, 255, 255],  8, 0, 1, 1);  // 1000
+    this.textures.rule.subset([  0,   0,   0, 255],  9, 0, 1, 1);  // 1001
+    this.textures.rule.subset([  0,   0,   0, 255], 10, 0, 1, 1);  // 1010
+    this.textures.rule.subset([255, 255, 255, 255], 11, 0, 1, 1);  // 1011
+    this.textures.rule.subset([  0,   0,   0, 255], 12, 0, 1, 1);  // 1100
+    this.textures.rule.subset([255, 255, 255, 255], 13, 0, 1, 1);  // 1101
+    this.textures.rule.subset([255, 255, 255, 255], 14, 0, 1, 1);  // 1110
+    this.textures.rule.subset([  0,   0,   0, 255], 15, 0, 1, 1);  // 1111
 }
 
 /**
