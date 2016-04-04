@@ -1,4 +1,4 @@
-# WebGL Game of Life
+# WebGL QUAD CA simulator
 
 * Online Demo: http://jeras.github.io/webgl-quad-ca/
 
