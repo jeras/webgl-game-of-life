@@ -10,10 +10,6 @@ int get(vec2 offset) {
     return int(texture2D(state, (gl_FragCoord.xy + offset) / scale).r);
 }
 
-int map(vec2 offset) {
-    return int(texture2D(rule, offset / 16).r);
-}
-
 void main() {
 
     //  cell_xy
@@ -26,14 +22,8 @@ void main() {
               + (cell_10 * 4)
               + (cell_01 * 2)
               + (cell_00 * 1);
+    float x = float(index) / 16.0;
 
     // TODO: use texture2D, it should be much faster
-    float val = float(map(vec2(index, 0.0)));
-    gl_FragColor = vec4(val, val, val, 1.0);
-//    for (int i=0; i<16; i++) {
-//        if (index == i) {
-//            float val = float(rule[i]);
-//            gl_FragColor = vec4(val, val, val, 1.0);
-//        }
-//    }
+    gl_FragColor = texture2D(rule, vec2(x, 0.0));
 }

@@ -14,27 +14,11 @@ function GOL(canvas, scale) {
     var w = canvas.width, h = canvas.height;
     this.viewsize = new Float32Array([w, h]);
     this.statesize = new Float32Array([w / scale, h / scale]);
+    this.offset = new Float32Array([0, 0]);
+    this.offset1 = new Float32Array([this.scale/2, this.scale/2]);
     this.timer = null;
     this.lasttick = GOL.now();
     this.fps = 0;
-
-    this.rule = new Float32Array([16, 1]);
-    this.rule [0] [ 0] = 0.0;
-    this.rule [0] [ 1] = 1.0;
-    this.rule [0] [ 2] = 0.0;
-    this.rule [0] [ 3] = 1.0;
-    this.rule [0] [ 4] = 1.0;
-    this.rule [0] [ 5] = 1.0;
-    this.rule [0] [ 6] = 0.0;
-    this.rule [0] [ 7] = 1.0;
-    this.rule [0] [ 8] = 0.0;
-    this.rule [0] [ 9] = 1.0;
-    this.rule [0] [10] = 1.0;
-    this.rule [0] [11] = 0.0;
-    this.rule [0] [12] = 1.0;
-    this.rule [0] [13] = 0.0;
-    this.rule [0] [14] = 0.0;
-    this.rule [0] [15] = 1.0;
 
     gl.disable(gl.DEPTH_TEST);
     this.programs = {
@@ -48,12 +32,16 @@ function GOL(canvas, scale) {
         front: igloo.texture(null, gl.RGBA, gl.REPEAT, gl.NEAREST)
             .blank(this.statesize[0], this.statesize[1]),
         back: igloo.texture(null, gl.RGBA, gl.REPEAT, gl.NEAREST)
-            .blank(this.statesize[0], this.statesize[1])
+            .blank(this.statesize[0], this.statesize[1]),
+        rule: igloo.texture(null, gl.RGBA, gl.REPEAT, gl.NEAREST)
+            .blank(16, 1)
     };
     this.framebuffers = {
         step: igloo.framebuffer()
     };
     this.setRandom();
+
+    this.setRule(0x6996);  // trivial XOR replicator
 }
 
 /**
@@ -163,12 +151,13 @@ GOL.prototype.step = function() {
     var gl = this.igloo.gl;
     this.framebuffers.step.attach(this.textures.back);
     this.textures.front.bind(0);
+    this.textures.rule.bind(1);
     gl.viewport(0, 0, this.statesize[0], this.statesize[1]);
     this.programs.gol.use()
         .attrib('quad', this.buffers.quad, 2)
         .uniformi('state', 0)
         .uniform('scale', this.statesize)
-        .uniform('rule', this.rule)
+        .uniformi('rule', 1)
         .draw(gl.TRIANGLE_STRIP, 4);
     this.swap();
     return this;
@@ -183,10 +172,12 @@ GOL.prototype.draw = function() {
     this.igloo.defaultFramebuffer.bind();
     this.textures.front.bind(0);
     gl.viewport(0, 0, this.viewsize[0], this.viewsize[1]);
+    this.offset = new Float32Array([this.offset[0] - this.offset1[0], this.offset[1] - this.offset1[1]]);
     this.programs.copy.use()
         .attrib('quad', this.buffers.quad, 2)
         .uniformi('state', 0)
         .uniform('scale', this.viewsize)
+        .uniform('offset', this.offset)
         .draw(gl.TRIANGLE_STRIP, 4);
     return this;
 };
@@ -269,6 +260,36 @@ GOL.prototype.eventCoord = function(event) {
         y = $target.height() - (event.pageY - offset.top - border);
     return [Math.floor(x / this.scale), Math.floor(y / this.scale)];
 };
+
+function getRuleElement (rule, index) {
+    var element = (rule >> index) % 2;
+    if (element)  return [255, 255, 255, 255];
+    else          return [  0,   0,   0, 255];
+    
+}
+
+/**
+ * Rule.
+ */
+GOL.prototype.setRule = function(rule) {
+    console.log("set new rule: " + rule);
+    this.textures.rule.subset(getRuleElement (rule,  0),  0, 0, 1, 1);  // 0000
+    this.textures.rule.subset(getRuleElement (rule,  1),  1, 0, 1, 1);  // 0001
+    this.textures.rule.subset(getRuleElement (rule,  2),  2, 0, 1, 1);  // 0010
+    this.textures.rule.subset(getRuleElement (rule,  3),  3, 0, 1, 1);  // 0011
+    this.textures.rule.subset(getRuleElement (rule,  4),  4, 0, 1, 1);  // 0100
+    this.textures.rule.subset(getRuleElement (rule,  5),  5, 0, 1, 1);  // 0101
+    this.textures.rule.subset(getRuleElement (rule,  6),  6, 0, 1, 1);  // 0110
+    this.textures.rule.subset(getRuleElement (rule,  7),  7, 0, 1, 1);  // 0111
+    this.textures.rule.subset(getRuleElement (rule,  8),  8, 0, 1, 1);  // 1000
+    this.textures.rule.subset(getRuleElement (rule,  9),  9, 0, 1, 1);  // 1001
+    this.textures.rule.subset(getRuleElement (rule, 10), 10, 0, 1, 1);  // 1010
+    this.textures.rule.subset(getRuleElement (rule, 11), 11, 0, 1, 1);  // 1011
+    this.textures.rule.subset(getRuleElement (rule, 12), 12, 0, 1, 1);  // 1100
+    this.textures.rule.subset(getRuleElement (rule, 13), 13, 0, 1, 1);  // 1101
+    this.textures.rule.subset(getRuleElement (rule, 14), 14, 0, 1, 1);  // 1110
+    this.textures.rule.subset(getRuleElement (rule, 15), 15, 0, 1, 1);  // 1111
+}
 
 /**
  * Manages the user interface for a simulation.
