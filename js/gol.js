@@ -1,5 +1,5 @@
 /**
- * Game of Life simulation and display.
+ * QUAD CA simulation and display.
  * @param {HTMLCanvasElement} canvas Render target
  * @param {number} [scale] Size of each cell in pixels (power of 2)
  */
@@ -149,7 +149,7 @@ GOL.prototype.swap = function() {
 };
 
 /**
- * Step the Game of Life state on the GPU without rendering anything.
+ * Step the CA state on the GPU without rendering anything.
  * @returns {GOL} this
  */
 GOL.prototype.step = function() {
@@ -175,7 +175,7 @@ GOL.prototype.step = function() {
 };
 
 /**
- * Render the Game of Life state stored on the GPU.
+ * Render the CA state stored on the GPU.
  * @returns {GOL} this
  */
 GOL.prototype.draw = function() {
