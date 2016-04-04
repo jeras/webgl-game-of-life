@@ -41,7 +41,10 @@ function GOL(canvas, scale) {
     };
     this.setRandom();
 
-    this.setRule(0x6996);  // trivial XOR replicator
+    if (GET.rule)
+        this.setRule(GET.rule);  // trivial XOR replicator
+    else
+        this.setRule(0x6996);  // trivial XOR replicator
 }
 
 /**
@@ -261,6 +264,9 @@ GOL.prototype.eventCoord = function(event) {
     return [Math.floor(x / this.scale), Math.floor(y / this.scale)];
 };
 
+/**
+ * Rule helper function.
+ */
 function getRuleElement (rule, index) {
     var element = (rule >> index) % 2;
     if (element)  return [255, 255, 255, 255];
@@ -289,6 +295,18 @@ GOL.prototype.setRule = function(rule) {
     this.textures.rule.subset(getRuleElement (rule, 13), 13, 0, 1, 1);  // 1101
     this.textures.rule.subset(getRuleElement (rule, 14), 14, 0, 1, 1);  // 1110
     this.textures.rule.subset(getRuleElement (rule, 15), 15, 0, 1, 1);  // 1111
+}
+
+/**
+ * Passing URL strings.
+ */
+var GET = {};
+var query = window.location.search.substring(1).split("&");
+for (var i = 0, max = query.length; i < max; i++) {
+    if (query[i] === "") // check for trailing & with no param
+        continue;
+    var param = query[i].split("=");
+    GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
 }
 
 /**
