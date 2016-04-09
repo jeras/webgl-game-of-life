@@ -14,7 +14,7 @@ state and make regular draw calls.
 
 ## Neighborhood and rule definition
 
-The neighborhood cells are listed in the next order (cell positions are defined as c[x,y]):
+The neighborhood cells are listed in the next order (cell positions are defined as `c[x,y]`):
 
  c[1,1] | c[0,1] | c[1,0] | c[0,0] | c{t+1} |
 --------|--------|--------|--------|--------|
