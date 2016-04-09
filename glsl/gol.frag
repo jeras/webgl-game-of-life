@@ -14,13 +14,13 @@ void main() {
 
     //  cell_xy
     int cell_00 = get(vec2(0.0, 0.0));
-    int cell_01 = get(vec2(0.0, 1.0));
     int cell_10 = get(vec2(1.0, 0.0));
+    int cell_01 = get(vec2(0.0, 1.0));
     int cell_11 = get(vec2(1.0, 1.0));
 
     int index = (cell_11 * 8)
-              + (cell_10 * 4)
-              + (cell_01 * 2)
+              + (cell_01 * 4)
+              + (cell_10 * 2)
               + (cell_00 * 1);
     float x = float(index) / 16.0;
 
