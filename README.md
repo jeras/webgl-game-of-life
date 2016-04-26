@@ -41,3 +41,20 @@ rule = sum {over i from 0 to 15} (r[i] * 2**i) = r[15] * 2**15 + ... + r[0] * 2*
 ```
 
 The rule range is from `0` to `2**16-1=65535`.
+
+## Features and bugs
+
+### Working features
+
+* QUAD CA simulation for any of the 65536 rules
+* rule can be specified via a form box or in the URL (see above)
+* the lattice is moved by 1/2 cell size in both x/y directions each time step (to align the output in the middle of the QUAD neighborhood)
+* other features like saving/loading of configurations from the original GoL simulator might work
+
+### Broken features
+
+* pixel by pixel editing of the configuration is broken, the edited pixel is not below the mouse pointer, this issue is caused by the 1/2 cell realignment mentioned above, but a proper fix should not remove this feature
+
+### Feature wish list
+
+* while the exact CA calculation is done on hidden frames, the display could provide various filters, for example if the cell brightness depended on the neighborhood prevalence, it might be easier to distinguish gliders from the background
